@@ -713,35 +713,6 @@
       margin-top: 30px;
     }
 
-    .date-strip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 26px;
-      padding: 10px;
-      border: 1px solid rgba(185,149,91,.18);
-      border-radius: 999px;
-      background: rgba(255,255,255,.76);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-    }
-
-    .date-strip span,
-    .date-strip b {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 38px;
-      padding: 0 16px;
-      border-radius: 999px;
-      font-weight: 900;
-    }
-
-    .date-strip b {
-      color: #fff;
-      background: var(--gold);
-    }
-
     .photo-card {
       position: relative;
       margin: 0;
@@ -925,7 +896,7 @@
       touch-action: none;
     }
 
-    .scratch-value.revealed .scratch-cover {
+    [data-scratch].revealed .scratch-cover {
       opacity: 0;
       pointer-events: none;
       transition: opacity .35s ease;
@@ -949,8 +920,8 @@
       transition: opacity .25s ease;
     }
 
-    .scratch-value.scratching .scratch-hint,
-    .scratch-value.revealed .scratch-hint {
+    [data-scratch].scratching .scratch-hint,
+    [data-scratch].revealed .scratch-hint {
       opacity: 0;
     }
 
@@ -1322,20 +1293,6 @@
         grid-template-columns: 1fr;
       }
 
-      .date-strip {
-        align-items: stretch;
-        width: 100%;
-        justify-content: space-between;
-        gap: 6px;
-      }
-
-      .date-strip span,
-      .date-strip b {
-        flex: 1;
-        padding: 0 8px;
-        font-size: .86rem;
-      }
-
       .photo-card {
         padding: 6px;
         border-radius: 24px;
@@ -1396,7 +1353,6 @@
         <div class="envelope">
           <div class="env-card">
             <span class="env-mini">Handan &amp; Bedirhan</span>
-            <strong>Davetiye</strong>
             <small>Mutlu günümüze davetlisiniz</small>
           </div>
           <div class="env-back"></div>
@@ -1406,7 +1362,6 @@
       </div>
 
       <p class="intro-kicker">Bir davetiniz var</p>
-      <h2>Handan &amp; Bedirhan</h2>
       <button class="intro-open" id="openInvitation" type="button">Daveti Aç</button>
     </div>
   </div>
@@ -1448,11 +1403,6 @@
               <a class="btn btn-soft" href="#location">Yol Tarifi Al</a>
             </div>
 
-            <div class="date-strip reveal" aria-label="Düğün tarihi">
-              <span>26 Temmuz</span>
-              <b>Pazar</b>
-              <span>19.00</span>
-            </div>
           </div>
 
           <figure class="photo-card reveal">
@@ -1501,22 +1451,6 @@
               </p>
 
               <div class="info-list">
-                <div class="info-row scratch-row">
-                  <span>Tarih</span>
-                  <div class="scratch-value" data-scratch>
-                    <strong>26 Temmuz Pazar</strong>
-                    <canvas class="scratch-cover" aria-label="Tarihi görmek için parmağınızla silin"></canvas>
-                    <em class="scratch-hint">Parmağınızla silin</em>
-                  </div>
-                </div>
-                <div class="info-row scratch-row">
-                  <span>Saat</span>
-                  <div class="scratch-value" data-scratch>
-                    <strong>19.00</strong>
-                    <canvas class="scratch-cover" aria-label="Saati görmek için parmağınızla silin"></canvas>
-                    <em class="scratch-hint">Parmağınızla silin</em>
-                  </div>
-                </div>
                 <div class="info-row scratch-row">
                   <span>Konum</span>
                   <div class="scratch-value" data-scratch>
@@ -1795,7 +1729,7 @@
           const rect = canvas.getBoundingClientRect();
           const x = clientX - rect.left;
           const y = clientY - rect.top;
-          const radius = Math.max(20, rect.width * .08);
+          const radius = Math.max(34, rect.width * .14);
 
           ctx.globalCompositeOperation = "destination-out";
           ctx.beginPath();
@@ -1833,14 +1767,14 @@
           const point = pointerPosition(event);
           scratchAt(point.x, point.y);
 
-          if (getClearRatio() > .34) reveal();
+          if (getClearRatio() > .16) reveal();
         }
 
         function endScratch() {
           if (!drawing) return;
           drawing = false;
           card.classList.remove("scratching");
-          if (getClearRatio() > .24) reveal();
+          if (getClearRatio() > .08) reveal();
         }
 
         paintCover();
