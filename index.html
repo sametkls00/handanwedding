@@ -184,7 +184,7 @@
       }
     }
 
-    /* Açılış zarfı */
+    /* Açılış davetiye kartı */
     .intro {
       position: fixed;
       inset: 0;
@@ -193,8 +193,32 @@
       place-items: center;
       padding: 24px;
       background:
-        radial-gradient(circle at 50% 18%, rgba(255,255,255,.98), rgba(251,250,247,.94) 46%, rgba(239,226,202,.9) 100%);
+        radial-gradient(circle at 18% 14%, rgba(247,233,226,.95), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(239,226,202,.9), transparent 34%),
+        linear-gradient(140deg, #fff 0%, #fbfaf7 46%, #f0dfc2 100%);
       transition: opacity .8s ease, visibility .8s ease;
+    }
+
+    .intro::before,
+    .intro::after {
+      content: "";
+      position: absolute;
+      width: min(460px, 70vw);
+      aspect-ratio: 1;
+      border: 1px solid rgba(185,149,91,.14);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .intro::before {
+      left: -160px;
+      top: -180px;
+    }
+
+    .intro::after {
+      right: -180px;
+      bottom: -210px;
+      background: radial-gradient(circle, rgba(255,255,255,.36), transparent 62%);
     }
 
     .intro.hide {
@@ -218,24 +242,40 @@
     }
 
     .intro-wrap {
-      width: min(460px, 100%);
+      position: relative;
+      width: min(520px, 100%);
+      padding: clamp(24px, 6vw, 42px);
+      border: 1px solid rgba(185,149,91,.2);
+      border-radius: 42px;
+      background: rgba(255,255,255,.64);
+      box-shadow: 0 30px 90px rgba(49,39,27,.16);
+      backdrop-filter: blur(18px);
       text-align: center;
     }
 
+    .intro-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(185,149,91,.18);
+      border-radius: 31px;
+      pointer-events: none;
+    }
+
     .envelope-scene {
-      height: 355px;
+      height: 300px;
       display: grid;
-      place-items: end center;
+      place-items: center;
       perspective: 1100px;
-      margin-bottom: 12px;
+      margin-bottom: 2px;
     }
 
     .envelope {
       position: relative;
-      width: min(320px, 76vw);
-      aspect-ratio: 320 / 210;
+      width: min(300px, 70vw);
+      aspect-ratio: 1;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 24px 36px rgba(68, 51, 28, .18));
+      filter: drop-shadow(0 26px 42px rgba(68, 51, 28, .18));
       animation: envelopeBreath 2.8s ease-in-out infinite;
     }
 
@@ -246,38 +286,48 @@
 
     .env-back {
       position: absolute;
-      inset: 0;
+      inset: 18px;
       z-index: 1;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #f8ead2, #e4c89f);
+      border: 1px solid rgba(185,149,91,.26);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255,255,255,.72), transparent 34%),
+        linear-gradient(145deg, #fff8ea, #e7cda4);
+      transform: rotate(-4deg);
+      transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .6s ease;
     }
 
     .env-card {
       position: absolute;
-      left: 7%;
-      bottom: 13%;
-      z-index: 2;
-      width: 86%;
-      height: 82%;
+      inset: 34px;
+      z-index: 4;
       display: grid;
       place-items: center;
-      padding: 20px;
-      border: 1px solid rgba(185,149,91,.26);
-      border-radius: 18px;
+      padding: 24px;
+      border: 1px solid rgba(185,149,91,.28);
+      border-radius: 30px;
       background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,242,.98));
-      box-shadow: 0 14px 28px rgba(68,51,28,.08);
-      transform: translateY(62px) scale(.94);
-      opacity: .96;
-      transition: transform 1.1s cubic-bezier(.2,.9,.2,1), opacity .5s ease;
+      box-shadow: 0 16px 36px rgba(68,51,28,.11);
+      transform: rotate(4deg) scale(.96);
+      opacity: .98;
+      transition: transform 1.1s cubic-bezier(.2,.9,.2,1), opacity .5s ease, filter .5s ease;
     }
 
     .env-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(185,149,91,.18);
+      border-radius: 22px;
+    }
+
+    .env-card::after {
       content: "❦";
       position: absolute;
-      top: 12px;
+      top: 24px;
       color: var(--gold);
-      opacity: .72;
-      font-size: 1.4rem;
+      opacity: .76;
+      font-size: 1.55rem;
     }
 
     .env-card .env-mini {
@@ -290,9 +340,9 @@
     }
 
     .env-card strong {
-      margin-top: -4px;
+      margin-top: 6px;
       font-family: var(--serif);
-      font-size: 2.4rem;
+      font-size: 2.7rem;
       line-height: 1;
       font-weight: 600;
     }
@@ -305,31 +355,49 @@
 
     .env-flap {
       position: absolute;
-      inset: 0 0 auto;
-      z-index: 5;
-      height: 58%;
-      border-radius: 20px 20px 0 0;
-      background: linear-gradient(160deg, #f8ead2, #e3c79b);
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top center;
+      left: 50%;
+      top: 50%;
+      z-index: 6;
+      width: 92px;
+      height: 92px;
+      border: 8px solid rgba(255,255,255,.52);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, #d4b072, var(--gold-dark));
+      box-shadow: 0 16px 38px rgba(134,101,47,.26);
+      transform: translate(-50%, -50%);
       backface-visibility: hidden;
-      transition: transform 1s cubic-bezier(.2,.9,.2,1), z-index .1s linear;
+      transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .5s ease;
+    }
+
+    .env-flap::before {
+      content: "Aç";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 700;
     }
 
     .env-pocket {
       position: absolute;
-      inset: 0;
-      z-index: 4;
+      inset: 28px;
+      z-index: 3;
       overflow: hidden;
-      border-radius: 20px;
+      border-radius: 32px;
+      opacity: .85;
+      transform: rotate(4deg);
+      transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .6s ease;
     }
 
     .env-pocket::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #faecd4, #e6cfaa);
-      clip-path: polygon(0 36%, 50% 70%, 100% 36%, 100% 100%, 0 100%);
+      background: linear-gradient(135deg, rgba(250,236,212,.88), rgba(230,207,170,.88));
+      clip-path: polygon(0 24%, 50% 58%, 100% 24%, 100% 100%, 0 100%);
     }
 
     .env-pocket::after {
@@ -339,7 +407,7 @@
       background:
         linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.26) 49% 51%, transparent 52%),
         linear-gradient(225deg, transparent 0 48%, rgba(143,109,53,.13) 49% 51%, transparent 52%);
-      clip-path: polygon(0 36%, 50% 70%, 100% 36%, 100% 100%, 0 100%);
+      clip-path: polygon(0 24%, 50% 58%, 100% 24%, 100% 100%, 0 100%);
     }
 
     .intro.opened .envelope {
@@ -347,14 +415,21 @@
     }
 
     .intro.opened .env-flap {
-      z-index: 1;
-      transform: rotateX(180deg);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.8) rotate(24deg);
     }
 
     .intro.opened .env-card {
       opacity: 1;
-      transform: translateY(-170px) scale(1);
+      filter: drop-shadow(0 28px 38px rgba(49,39,27,.12));
+      transform: rotate(0deg) translateY(-16px) scale(1.08);
       transition-delay: .22s;
+    }
+
+    .intro.opened .env-back,
+    .intro.opened .env-pocket {
+      opacity: .28;
+      transform: rotate(-8deg) translateY(22px) scale(.92);
     }
 
     .intro-kicker {
@@ -373,6 +448,15 @@
       font-weight: 600;
       line-height: .9;
       letter-spacing: -.04em;
+    }
+
+    .intro-note {
+      position: relative;
+      z-index: 1;
+      margin: -10px auto 20px;
+      max-width: 330px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
     .intro-open {
@@ -543,15 +627,6 @@
       min-height: calc(100svh - 120px);
     }
 
-    .bismillah {
-      margin: 0 0 16px;
-      color: var(--gold-dark);
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3.6vw, 2.35rem);
-      font-weight: 600;
-      letter-spacing: .01em;
-    }
-
     .hero-label {
       display: inline-flex;
       align-items: center;
@@ -684,9 +759,9 @@
     .photo-card {
       position: relative;
       margin: 0;
-      padding: 14px;
-      border: 1px solid rgba(185,149,91,.24);
-      border-radius: 38px;
+      padding: 8px;
+      border: 1px solid rgba(185,149,91,.18);
+      border-radius: 30px;
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,250,242,.92));
       box-shadow: var(--shadow-soft);
     }
@@ -703,7 +778,7 @@
 
     .photo-frame {
       overflow: hidden;
-      border-radius: 28px;
+      border-radius: 23px;
       background: #f8f1e6;
     }
 
@@ -825,6 +900,93 @@
       border: 1px solid rgba(185,149,91,.14);
       border-radius: 22px;
       background: rgba(255,255,255,.64);
+    }
+
+    .scratch-row {
+      align-items: center;
+    }
+
+    .scratch-value {
+      position: relative;
+      min-height: 54px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding: 12px 14px;
+      border-radius: 17px;
+      background: rgba(255,253,248,.74);
+    }
+
+    .scratch-value strong {
+      filter: blur(3px);
+      opacity: .5;
+      transition: filter .45s ease, opacity .45s ease;
+    }
+
+    .scratch-value.revealed strong {
+      filter: none;
+      opacity: 1;
+    }
+
+    .scratch-cover {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .scratch-value.revealed .scratch-cover {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+
+    .scratch-hint {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      padding: 0 12px;
+      color: rgba(45,41,37,.72);
+      font-size: .76rem;
+      font-style: normal;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .scratch-value.scratching .scratch-hint,
+    .scratch-value.revealed .scratch-hint {
+      opacity: 0;
+    }
+
+    .scratch-calendar {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      padding: 10px 8px;
+      background: rgba(255,253,248,.52);
+    }
+
+    .scratch-calendar .calendar-day,
+    .scratch-calendar .calendar-meta {
+      filter: blur(4px);
+      opacity: .46;
+      transition: filter .45s ease, opacity .45s ease;
+    }
+
+    .scratch-calendar.revealed .calendar-day,
+    .scratch-calendar.revealed .calendar-meta {
+      filter: none;
+      opacity: 1;
     }
 
     .info-row span {
@@ -1259,16 +1421,20 @@
       }
 
       .photo-card {
-        padding: 10px;
-        border-radius: 28px;
+        padding: 6px;
+        border-radius: 24px;
       }
 
       .photo-frame {
-        border-radius: 20px;
+        border-radius: 18px;
       }
 
       .info-row {
         grid-template-columns: 1fr;
+      }
+
+      .scratch-value {
+        min-height: 58px;
       }
 
       .detail-actions {
@@ -1359,7 +1525,6 @@
       <article class="paper-card" aria-label="Handan ve Bedirhan düğün davetiyesi">
         <section class="section-block hero-section" id="top">
           <div class="hero-copy">
-            <p class="bismillah reveal">Bismillahirrahmanirrahim</p>
             <div class="hero-label reveal">Düğünümüze Davetlisiniz</div>
 
             <h1 class="names reveal">
@@ -1368,22 +1533,9 @@
               <span>Bedirhan</span>
             </h1>
 
-            <div class="parents reveal" aria-label="Aileler">
-              <div class="parent-card">
-                <small>Kafa Ailesi</small>
-                <strong>Cemile - Ahmet Kafa</strong>
-              </div>
-              <i aria-hidden="true">ile</i>
-              <div class="parent-card">
-                <small>Ayas Ailesi</small>
-                <strong>Mine - Fazlı Ayas</strong>
-              </div>
-            </div>
-
             <p class="invite-text reveal">
-              <strong>Kafa ve Ayas aileleri olarak;</strong> kıymetli evlatlarımız
-              Handan ile Bedirhan’ın düğün merasiminde siz değerli dostlarımızı
-              aramızda görmekten onur ve mutluluk duyarız.
+              Bu özel günümüzde siz değerli dostlarımızı aramızda görmekten
+              onur ve mutluluk duyarız.
             </p>
 
             <div class="hero-actions reveal">
@@ -1408,7 +1560,6 @@
                 fetchpriority="high"
               />
             </div>
-            <figcaption>Handan &amp; Bedirhan</figcaption>
           </figure>
         </section>
 
@@ -1417,7 +1568,7 @@
             <span class="kicker">Tarih &amp; Saat</span>
             <h2 class="section-title">Düğün merasimi</h2>
             <p class="section-subtitle">
-              Bu güzel akşamda sizleri de aramızda görmekten büyük mutluluk duyarız.
+              Tarih ve saati elinizle siler gibi açın; bu güzel akşamda sizleri de aramızda görmekten büyük mutluluk duyarız.
             </p>
           </div>
 
@@ -1425,10 +1576,14 @@
             <div class="calendar-sheet reveal">
               <span class="calendar-month">TEMMUZ</span>
               <div class="calendar-body">
-                <span class="calendar-day">26</span>
-                <div class="calendar-meta">
-                  <span>Pazar</span>
-                  <span>19.00</span>
+                <div class="scratch-calendar" data-scratch>
+                  <span class="calendar-day">26</span>
+                  <div class="calendar-meta">
+                    <span>Pazar</span>
+                    <span>19.00</span>
+                  </div>
+                  <canvas class="scratch-cover" aria-label="Tarih ve saati görmek için parmağınızla silin"></canvas>
+                  <em class="scratch-hint">Tarih ve saati parmağınızla silin</em>
                 </div>
               </div>
             </div>
@@ -1441,17 +1596,29 @@
               </p>
 
               <div class="info-list">
-                <div class="info-row">
+                <div class="info-row scratch-row">
                   <span>Tarih</span>
-                  <strong>26 Temmuz Pazar</strong>
+                  <div class="scratch-value" data-scratch>
+                    <strong>26 Temmuz Pazar</strong>
+                    <canvas class="scratch-cover" aria-label="Tarihi görmek için parmağınızla silin"></canvas>
+                    <em class="scratch-hint">Parmağınızla silin</em>
+                  </div>
                 </div>
-                <div class="info-row">
+                <div class="info-row scratch-row">
                   <span>Saat</span>
-                  <strong>19.00</strong>
+                  <div class="scratch-value" data-scratch>
+                    <strong>19.00</strong>
+                    <canvas class="scratch-cover" aria-label="Saati görmek için parmağınızla silin"></canvas>
+                    <em class="scratch-hint">Parmağınızla silin</em>
+                  </div>
                 </div>
-                <div class="info-row">
-                  <span>Salon</span>
-                  <strong>Kulüp Doğa Düğün Salonu</strong>
+                <div class="info-row scratch-row">
+                  <span>Konum</span>
+                  <div class="scratch-value" data-scratch>
+                    <strong>Kulüp Doğa Düğün Salonu</strong>
+                    <canvas class="scratch-cover" aria-label="Konumu görmek için parmağınızla silin"></canvas>
+                    <em class="scratch-hint">Parmağınızla silin</em>
+                  </div>
                 </div>
               </div>
 
@@ -1489,11 +1656,11 @@
         <section class="section-block">
           <div class="trad-card reveal">
             <div class="ornament" aria-hidden="true">❦</div>
-            <h2>Kafa &amp; Ayas Aileleri</h2>
+            <h2>Handan &amp; Bedirhan</h2>
             <p>
-              Evlatlarımız Handan ve Bedirhan’ın bu mutlu gününde,
-              siz değerli akraba, dost ve sevdiklerimizi aramızda görmekten
-              onur duyarız.
+              Hayatımızın en özel günlerinden birinde,
+              siz değerli akraba, dost ve sevdiklerimizi yanımızda görmekten
+              mutluluk duyarız.
             </p>
             <strong>Tüm dostlarımız davetlidir.</strong>
           </div>
@@ -1721,6 +1888,111 @@
 
       updateCountdown();
       window.setInterval(updateCountdown, 1000);
+
+      /* El ile silerek bilgileri açma */
+      function setupScratchCard(card) {
+        const canvas = card.querySelector(".scratch-cover");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return;
+
+        let drawing = false;
+        let isRevealed = false;
+
+        function paintCover() {
+          const rect = card.getBoundingClientRect();
+          const ratio = window.devicePixelRatio || 1;
+          canvas.width = Math.max(1, Math.round(rect.width * ratio));
+          canvas.height = Math.max(1, Math.round(rect.height * ratio));
+          canvas.style.width = `${rect.width}px`;
+          canvas.style.height = `${rect.height}px`;
+
+          ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+          const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+          gradient.addColorStop(0, "#ead9bc");
+          gradient.addColorStop(.45, "#c8a66f");
+          gradient.addColorStop(1, "#f5ead7");
+          ctx.globalCompositeOperation = "source-over";
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, rect.width, rect.height);
+
+          ctx.fillStyle = "rgba(255,255,255,.16)";
+          for (let x = -rect.height; x < rect.width; x += 18) {
+            ctx.fillRect(x, 0, 8, rect.height * 2);
+          }
+        }
+
+        function reveal() {
+          if (isRevealed) return;
+          isRevealed = true;
+          card.classList.add("revealed");
+        }
+
+        function scratchAt(clientX, clientY) {
+          if (isRevealed) return;
+
+          const rect = canvas.getBoundingClientRect();
+          const x = clientX - rect.left;
+          const y = clientY - rect.top;
+          const radius = Math.max(20, rect.width * .08);
+
+          ctx.globalCompositeOperation = "destination-out";
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        function getClearRatio() {
+          const image = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          let clear = 0;
+
+          for (let i = 3; i < image.length; i += 16) {
+            if (image[i] < 40) clear++;
+          }
+
+          return clear / (image.length / 16);
+        }
+
+        function pointerPosition(event) {
+          const point = event.touches?.[0] || event.changedTouches?.[0] || event;
+          return { x: point.clientX, y: point.clientY };
+        }
+
+        function startScratch(event) {
+          event.preventDefault();
+          drawing = true;
+          card.classList.add("scratching");
+          const point = pointerPosition(event);
+          scratchAt(point.x, point.y);
+        }
+
+        function moveScratch(event) {
+          if (!drawing) return;
+          event.preventDefault();
+          const point = pointerPosition(event);
+          scratchAt(point.x, point.y);
+
+          if (getClearRatio() > .34) reveal();
+        }
+
+        function endScratch() {
+          if (!drawing) return;
+          drawing = false;
+          card.classList.remove("scratching");
+          if (getClearRatio() > .24) reveal();
+        }
+
+        paintCover();
+        canvas.addEventListener("pointerdown", startScratch);
+        canvas.addEventListener("pointermove", moveScratch);
+        window.addEventListener("pointerup", endScratch);
+        window.addEventListener("resize", () => {
+          if (!isRevealed) paintCover();
+        });
+      }
+
+      document.querySelectorAll("[data-scratch]").forEach(setupScratchCard);
 
       /* Adres kopyalama */
       function fallbackCopy(text) {
